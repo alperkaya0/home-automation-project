@@ -1,3 +1,7 @@
+# Important Notes
+
+Because of the difference between Alper's username and git name, most of Alper's commits don't show up at contributes page.
+
 # Home Automation System
 
 This is a web-based home automation system that allows you to control your home appliances remotely. It includes a frontend and a backend, both written in Html, Css, Bootstrap, Chart.js AND Php. The frontend is built using BootStrap, while the backend is built using PHP. And it doesn't include a database yet. We use keyValuePairs.txt instead of a database. Alper Kaya 20200808002, Meryem Ahıskalı 20200808054<br>
