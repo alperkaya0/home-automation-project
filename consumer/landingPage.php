@@ -352,7 +352,7 @@ Donec non venenatis libero, eget aliquet felis. Morbi quis ex efficitur, luctus 
 
         $myfile = fopen("../keyValuePairs.txt", "w");
         fwrite($myfile, ($_SESSION['isLightsOn'] ? "isLightsOn=true" : "isLightsOn=false") . "\n" . 
-                        "temperature=" . $_SESSION['temperature'] . "\n" .//I use doublevar, because if you don't use it 0.30 and 0.3 will appear as if they aren't same things
+                        "temperature=" . doubleval($_SESSION['temperature']) . "\n" .//I use doublevar, because if you don't use it 0.30 and 0.3 will appear as if they aren't same things
                         ($_SESSION['isAcOn'] ? "isAcOn=true" : "isAcOn=false") . "\n" .
                         ($_SESSION['isWindowBlindOn'] ? "isWindowBlindOn=true" : "isWindowBlindOn=false") . "\n" .
                         "weatherForecast=" . $_SESSION['weatherForecast'] . "\n" .

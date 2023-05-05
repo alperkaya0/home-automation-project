@@ -1,6 +1,6 @@
-isLightsOn=false
-temperature=25
-isAcOn=false
+isLightsOn=true
+temperature=0.5
+isAcOn=true
 isWindowBlindOn=false
 weatherForecast=sunny
-isEmergency=false
+isEmergency=true
