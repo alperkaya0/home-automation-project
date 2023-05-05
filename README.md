@@ -24,8 +24,8 @@ This is a web-based home automation system that allows you to control your home 
 
 ## Login Credentials
 
-Consumer: user  - 1234<br>
-Producer: admin - 1234<br>
+Consumer: user   - 1234<br>
+Producer: admin  - 1234<br>
 
 ## Details
 
