@@ -1,6 +1,6 @@
 # Important Notes
 
-Because of the difference between Alper's username and git name, most of Alper's commits don't show up at contributes page.
+Most of Alper's commits don't show up at contributes page.
 
 # Home Automation System
 
