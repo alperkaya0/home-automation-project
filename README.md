@@ -36,4 +36,4 @@ We have used a txt file to mimic a database, we read and write updates to it.
 
 ## License
 
-This home automation system is licensed under the [MIT License](LICENSE).
+This home automation system project is licensed under the [MIT License](LICENSE).
