@@ -24,7 +24,7 @@ This is a web-based home automation system that allows you to control your home 
 
 ## Login Credentials
 
-Consumer: meryemAhıskalı - 1234<br>
+Consumer:<br> meryemAhıskalı - 1234<br>
           alperKaya      - 5678<br>
           johnDoe        - 9898<br>
 Producer: admin - 1234<br>
