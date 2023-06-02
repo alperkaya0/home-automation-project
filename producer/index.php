@@ -10,30 +10,64 @@
 
 
 	<?php
-		$username = "";
-		$password = "";
 
-		$nameErr = $passErr = "";
+$conn=mysqli_connect('localhost','meryem','localhost','web');
 
-		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			if (empty($_POST["username"])) {
-				$nameErr = "Username is required";
-			  } else {
-				$username = test_input($_POST["username"]);
-			  }
-			if (empty($_POST["username"])) {
-				$passErr = "Password is required";
-			} else {
-				$password = test_input($_POST["password"]);
+if(!$conn)
+{
+	echo "connection error: " . mysqli_connect_error();
+}
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+$username = $_POST['username'];
+$password = $_POST['password'];
+
+
+$errors = array();
+
+
+
+		if (empty($username)) {
+		$errors['username'] = 'A username is required <br />';
+		} else {
+		$username=$_POST['username'];
+			if(!preg_match('/^[a-zA-ZğĞıİöÖçÇşŞüÜ\s]+$/u',$username)){
+				$errors['username']='username must be letters and spaces only<br />';
 			}
+
+		}
+		if (empty($password)) {
+		$errors['password'] = 'A password is required <br />';
+		} else {
+		$password=$_POST['password'];
+			if(!preg_match('/^[0-9]+$/',$password)){
+				$errors['password']='password must be only numbers';
+			}
+
 		}
 
-		function test_input($data) {
-        	$data = htmlspecialchars($data);
-			$data = stripslashes($data);
-            $data = trim($data);
-			return $data;
-		}
+
+if (!empty($errors)) {
+foreach ($errors as $error) {
+	echo $error;
+}
+} else {
+
+	if ($username == 'meryem' && $password == '1928') {
+	
+			header("location: landingPage.php");
+		
+	} else {
+		echo "Invalid credentials";
+	}
+
+}
+
+
+}
+
 	?>
 
 	<div class="shadow p-3 my-5 mx-5 bg-body rounded">Please Login To Proceed</div>
@@ -46,26 +80,21 @@
 					<div class="mb-3">
 						<label for="username" class="form-label">Username</label>
 						<input type="text" name="username" class="form-control" id="username">
-						<?php echo '<span style="color: red;">' . $nameErr . '</span>' ?>
+						
 					</div>
 					<div class="mb-3">
 						<label for="password" class="form-label">Password</label>
 						<input name="password" type="password" class="form-control" id="password">
-						<?php echo '<span style="color: red;">' . $passErr . '</span>' ?>
+						
 					</div>
 					<button type="submit" class="btn btn-primary" value="Login">Submit</button>
 				</form>
 			</div>
-			<div class="col-4"><button class="btn btn-primary" style="margin: 0px" onclick="javascript:window.location.href='./landingPage.php'">Skip Logging In</button></div>
 		</div>
 	</div>
 
 	
-	<?php
-		if ($username != "" && $password != "" && $username == "admin" && $password == "1234") {
-			header("Location: /home-automation-project/producer/landingPage.php");
-		}
-	?>
+	
 	<?php include '../toast.php' ?>
 	<?php include "../footer.php" ?>
 </body>
