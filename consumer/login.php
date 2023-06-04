@@ -11,6 +11,7 @@
 
 
 	<?php
+    session_start();
    $conn=mysqli_connect('localhost','meryem','localhost','web');
 
    if(!$conn)
@@ -55,6 +56,7 @@
                     // Giriş başarılı
                     echo "Successful login";
                     header("Location: landingPage.php");
+                    $_SESSION["username"] = $username;
                     exit();
                 } else {
                     // Geçersiz kimlik bilgileri

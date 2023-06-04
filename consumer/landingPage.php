@@ -9,6 +9,7 @@
     <title>Landing Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="./scripts/main.js"></script>
     <link rel="icon" type="image/x-icon" href="./images/logo.png">
     <style>
         .chart-container {
@@ -17,8 +18,12 @@
         }
     </style>
 </head>
-<body>
+<body onload="onLoad();">
     <?php
+        if (!isset($_SESSION["username"])) {
+            header("Location: login.php");
+            exit();
+        }
         if (!isset($_SESSION['isLightsOn'])) {
             $myfile = fopen("../keyValuePairs.txt", "r") or die("Unable to open file!");
             $data = fread($myfile,filesize("../keyValuePairs.txt"));
@@ -41,9 +46,23 @@
         }
     ?>
     <?php include "../navbar.php" ?>
+    
+    <script>
+        fetch('http://localhost/home-automation-project/consumer/getFullName.php', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(response => {
+            console.log(JSON.stringify(response));
+            document.getElementById("welcoming-message").innerHTML = "Welcome Back, " + response + "<span class=\"badge bg-secondary\">Account Holder</span>";
+        });
+    </script>
 
     <div class="mt-5 ms-5 mb-5">
-        <h2>Welcome Back, Alper Kaya<span class="badge bg-secondary">Account Holder</span></h2>
+        <h2 id="welcoming-message">Welcome Back,<span class="badge bg-secondary">Account Holder</span></h2>
     </div>
 
     <div class="shadow-lg p-3 mb-5 mx-5 bg-body rounded">Your Sensors And Controls.</div>
@@ -53,21 +72,19 @@
             
             <div class="carousel-item active">
                 <div class="card" id="emergencyAlert">
-                    <?php echo '<img src="./images/' . ($_SESSION['isEmergency'] ? "emergency" : "nonEmergency") . '.png" class="card-img-top" alt="..." height="235" style="object-fit: contain">' ?>
+                    <img id="emergencyImage" src="./images/emergency.png" class="card-img-top" alt="emergency_image" height="235" style="object-fit: contain">
                     <div class="card-body">
                         <div class="container text-center">
                         <h5 class="card-title">Emergency Alert</h5>
-                        <?php echo '<p class="card-text">Emergency alert is ' . ($_SESSION['isEmergency'] ? "<b>ON</b>" : "<b>off</b>") . '.</p>' ?>
+                        <p id="emergencyParagraph" class="card-text">Emergency alert is <b>ON</b></p>
                         </div>
-                        <form action="" method="post">
-                            <div class="container text-center">
-                                <div class="row justify-content-center">
-                                    <div class="col">
-                                        <input class="btn btn-primary" type="submit" name="emergencyToggleButton" value="Toggle Alarm">
-                                    </div>
+                        <div class="container text-center">
+                            <div class="row justify-content-center">
+                                <div class="col">
+                                    <button class="btn btn-primary" type="button" onclick="onClickEmergency();">Toggle</button>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -75,12 +92,12 @@
             <div class="carousel-item">
                 <div class="card">
                     <a href="#chart-4">
-                        <?php echo '<img src="./images/' . $_SESSION['weatherForecast'] . '.png" class="card-img-top" alt="..." height="235" style="object-fit: contain;">' ?>
+                        <img id="weatherImage" src="./images/sunny.png" class="card-img-top" alt="..." height="235" style="object-fit: contain;">
                     </a>
                     <div class="card-body">
                         <div class="container text-center">
                             <h5 class="card-title">Weather Forecast</h5>
-                            <?php echo '<p class="card-text">Forecasted weather for tomorrow is <b>' . $_SESSION['weatherForecast'] . '</b>.</p>' ?>
+                            <p class="card-text">Forecasted weather for tomorrow is <b id="weatherParagraph">sunny</b>.</p>
                             <!-- TO GIVE SOME SPACE -->
                             <div class="mb-4"></div>
                             <!-- TO GIVE SOME SPACE -->
@@ -92,22 +109,20 @@
             <div class="carousel-item">
                 <div class="card" id="airConditioning">
                     <a href="#chart-3">
-                        <?php echo '<img src="' . ($_SESSION['isAcOn'] ? "./images/workingFan.gif" : "./images/stoppedFan.png") . '" class="card-img-top" alt="..." height="235" width="432" style="object-fit: contain;">' ?>
+                        <img id="acGif" src="./images/workingFan.gif" class="card-img-top" alt="..." height="235" width="432" style="object-fit: contain;">
                     </a>
                     <div class="card-body">
                         <div class="container text-center">
                             <h5 class="card-title">Air Conditioning</h5>
-                            <p class="card-text">You can turn on/off AC.</p>
+                            <p id="acParagraph" class="card-text">You can turn on/off AC.</p>
                         </div>
-                        <form method="post">
-                            <div class="container text-center">
-                                <div class="row justify-content-center">
-                                    <div class="col">
-                                        <input class="btn btn-primary" type="submit" value="AC Toggle" name="acToggleButton">
-                                    </div>
+                        <div class="container text-center">
+                            <div class="row justify-content-center">
+                                <div class="col">
+                                    <button class="btn btn-primary" onclick="onClickAc();">AC Toggle</button>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -115,43 +130,39 @@
             <div class="carousel-item">
                 <div class="card">
                     <a href="#chart-2">
-                    <?php echo '<img src="' . ($_SESSION['isLightsOn'] ? "./images/lightsOn.png" : "./images/lightsOff.png") . '" class="card-img-top" alt="..." height="235" width="432" style="object-fit: contain;">' ?>
+                    <img id="lightsImage" src="./images/lightsOn.png" class="card-img-top" alt="..." height="235" width="432" style="object-fit: contain;">
                     </a>
                     <div class="card-body">
                         <div class="container text-center">
                             <h5 class="card-title">Switch Lights</h5>
-                            <?php echo '<p class="card-text">You can switch lights on and off from here. It\'s <b>' . ($_SESSION['isLightsOn'] ? "on" : "off") . '</b> now.</p>' ?>
+                            <p class="card-text">You can switch lights on and off from here. It's <b id="lightsParagraph">on</b> now.</p>
                         </div>
-                        <form action="" method="post">
-                            <div class="container text-center">
-                                <div class="row justify-content-center">
-                                    <div class="col">
-                                        <input class="btn btn-primary" type="submit" name="lightsToggleButton" value="Lights Toggle">
-                                    </div>
+                        <div class="container text-center">
+                            <div class="row justify-content-center">
+                                <div class="col">
+                                    <button class="btn btn-primary" onclick="onClickLightsOn();">Lights Toggle</button>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="carousel-item">
                 <div class="card">
-                    <?php echo '<img src="' . ($_SESSION['isWindowBlindOn'] ? "./images/blindsOpened.png" : "./images/blindsClosed.png") . '" class="card-img-top" alt="..." height="235" width="432" style="object-fit: contain;">' ?>
+                    <img id="blindsImage" src="./images/blindsOpened.png" class="card-img-top" alt="..." height="235" width="432" style="object-fit: contain;">
                     <div class="card-body">
                         <div class="container text-center">
                             <h5 class="card-title">Control Window Blinds</h5>
                             <p class="card-text">You can control them anytime you want.</p>
                         </div>
-                        <form action="" method="post">
-                            <div class="container text-center">
-                                <div class="row justify-content-between">
-                                    <div class="col">
-                                        <input class="btn btn-primary" type="submit" name="windowBlindToggleButton" value="Window Blind Toggle">
-                                    </div>
+                        <div class="container text-center">
+                            <div class="row justify-content-between">
+                                <div class="col">
+                                    <button class="btn btn-primary" onclick="onClickWindow();">Window Blind Toggle</button>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -164,21 +175,18 @@
                     <div class="card-body">
                         <div class="container text-center">
                             <h5 class="card-title">Temperature</h5>
-                            <?php echo '<p class="card-text">House temperature is <b>' . $_SESSION['temperature'] . 'C.</b></p>' ?>
+                            <p class="card-text">House temperature is <b id="temperatureParagraph"></b><b>C.</b></p>
                         </div>
-                        
-                        <form action="#chart" method="post">
-                            <div class="container text-center">
-                                <div class="row justify-content-between">
-                                    <div class="col-6">
-                                        <button class="btn btn-primary" type="submit" name="temperatureUpButton">+</button>
-                                    </div>
-                                    <div class="col-6">
-                                        <button class="btn btn-primary" type="submit" name="temperatureDownButton">-</button>
-                                    </div>
+                        <div class="container text-center">
+                            <div class="row justify-content-between">
+                                <div class="col-6">
+                                    <button class="btn btn-primary" type="button" onclick="onClickTemperatureUp();">+</button>
+                                </div>
+                                <div class="col-6">
+                                    <button class="btn btn-primary" type="button" onclick="onClickTemperatureDown();">-</button>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -243,85 +251,157 @@ Donec non venenatis libero, eget aliquet felis. Morbi quis ex efficitur, luctus 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
     <script>
-      const ctx = document.getElementById("chart").getContext('2d');
-      const myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: ["Sunday", "Monday", "Tuesday",
-          "Wednesday", "Thursday", "Friday", "Saturday"],
-          datasets: [{
-            label: 'Temperature',
-            backgroundColor: 'rgb(178, 164, 255)',
-            borderColor: 'rgb(147, 132, 209)',
-            data: [2, 4, 16, 64, 38, 45, 60],
-          }]
-        },
-        options: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: true,
-              }
-            }]
-          }
-        },
-      });
-    </script>
-
-    <script>
-      const ctx2 = document.getElementById("chart-2").getContext('2d');
-      const myChart2 = new Chart(ctx2, {
-        type: 'bar',
-        data: {
-          labels: ["Last Decade", "This Year", "This Week", "Today"],
-          datasets: [{
-            label: 'Light Usage',
-            backgroundColor: 'rgb(255, 180, 180)',
-            borderColor: 'rgb(147, 132, 209)',
-            data: [650, 400, 200, 50],
-          }]
-        },
-        options: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: true,
-              }
-            }]
-          }
-        },
-      });
-    </script>
-
-    <script>
-        const ctx3 = document.getElementById("chart-3").getContext('2d');
-        const myChart3 = new Chart(ctx3, {
-            type: 'pie',
-            data: {
-            labels: ["Last Decade", "This Year", "This Week", "Today"],
-            datasets: [{
-                label: 'Air Conditioning Energy Consumption',
-                backgroundColor: 'rgb(255, 222, 180)',
-                borderColor: 'rgb(255, 180, 180)',
-                data: [20, 30, 40, 50],
-            }]
+        fetch('http://localhost/home-automation-project/consumer/charts_temperature.php', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
             },
+        })
+        .then(response => response.json())
+        .then(response => {
+            console.log(JSON.stringify(response));
+            if (!response["Monday"]) {
+                response["Monday"] = 0;
+            }
+            if (!response["Tuesday"]) {
+                response["Tuesday"] = 0;
+            }
+            if (!response["Wednesday"]) {
+                response["Wednesday"] = 0;
+            }
+            if (!response["Thursday"]) {
+                response["Thursday"] = 0;
+            }
+            if (!response["Friday"]) {
+                response["Friday"] = 0;
+            }
+            if (!response["Saturday"]) {
+                response["Saturday"] = 0;
+            }
+            if (!response["Sunday"]) {
+                response["Sunday"] = 0;
+            }
+            const ctx = document.getElementById("chart").getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                labels: ["Sunday", "Monday", "Tuesday",
+                "Wednesday", "Thursday", "Friday", "Saturday"],
+                datasets: [{
+                    label: 'Temperature',
+                    backgroundColor: 'rgb(178, 164, 255)',
+                    borderColor: 'rgb(147, 132, 209)',
+                    data: [
+                    response["Monday"],
+                    response["Tuesday"],
+                    response["Wednesday"],
+                    response["Thursday"],
+                    response["Friday"],
+                    response["Saturday"],
+                    response["Sunday"]]
+                }]
+                },
+                options: {
+                scales: {
+                    yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                    }
+                    }]
+                }
+                },
+            });
+        })
+        
+    </script>
+
+    <script>
+        fetch('http://localhost/home-automation-project/consumer/charts_light_usage.php', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(response => {
+            console.log(JSON.stringify(response));
+            const ctx2 = document.getElementById("chart-2").getContext('2d');
+            const myChart2 = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ["Last Decade", "This Year", "This Week", "Today"],
+                datasets: [{
+                label: 'Light Usage',
+                backgroundColor: 'rgb(255, 180, 180)',
+                borderColor: 'rgb(147, 132, 209)',
+                data: [response["decade"], response["year"], response["week"], response["day"]],
+                }]
+            },
+            options: {
+                scales: {
+                yAxes: [{
+                    ticks: {
+                    beginAtZero: true,
+                    }
+                }]
+                }
+            },
+            });
+        });
+
+        
+    </script>
+
+    <script>
+        fetch('http://localhost/home-automation-project/consumer/charts_energy_consumption.php', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(response => {
+            console.log(JSON.stringify(response));
+            const ctx3 = document.getElementById("chart-3").getContext('2d');
+            const myChart3 = new Chart(ctx3, {
+                type: 'pie',
+                data: {
+                labels: ["Last Decade", "This Year", "This Week", "Today"],
+                datasets: [{
+                    label: 'Air Conditioning Energy Consumption',
+                    backgroundColor: 'rgb(255, 222, 180)',
+                    borderColor: 'rgb(255, 180, 180)',
+                    data: [response["decade"], response["year"], response["week"], response["day"]],
+                }]
+                },
+            });
         });
     </script>
 
     <script>
-      const ctx4 = document.getElementById("chart-4").getContext('2d');
-      const myChart4 = new Chart(ctx4, {
-        type: 'doughnut',
-        data: {
-          labels: ["sunny", "rainy", "cloudy", "stormy", "windy"],
-          datasets: [{
-            label: 'Weather',
-            data: [100, 110, 70, 55, 30],
-            backgroundColor: ["#FEFF86", "#B0DAFF", "#DAF5FF", "#576CBC", "#B9E9FC"]
-          }]
-        },
-      });
+        fetch('http://localhost/home-automation-project/consumer/charts_weather.php', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(response => {
+            console.log(JSON.stringify(response));
+            const ctx4 = document.getElementById("chart-4").getContext('2d');
+            const myChart4 = new Chart(ctx4, {
+            type: 'doughnut',
+            data: {
+                labels: ["sunny", "rainy", "cloudy", "stormy", "windy"],
+                datasets: [{
+                label: 'Weather',
+                data: [response["sunny"], response["rainy"], response["cloudy"], response["stormy"], response["windy"]],
+                backgroundColor: ["#FEFF86", "#B0DAFF", "#DAF5FF", "#576CBC", "#B9E9FC"]
+                }]
+            },
+            });
+        });
+        
     </script>
 
     <?php include "../footer.php" ?>
