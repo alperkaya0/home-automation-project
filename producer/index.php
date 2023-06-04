@@ -47,25 +47,6 @@ $errors = array();
 			}
 
 		}
-
-
-if (!empty($errors)) {
-foreach ($errors as $error) {
-	echo $error;
-}
-} else {
-
-	if ($username == 'meryem' && $password == '1928') {
-	
-			header("location: landingPage.php");
-		
-	} else {
-		echo "Invalid credentials";
-	}
-
-}
-
-
 }
 
 	?>
@@ -77,6 +58,18 @@ foreach ($errors as $error) {
 			<div class="col-4"></div>
 			<div class="col-3 ms-5">
 				<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+					<?php if (!empty($errors)) {
+						foreach ($errors as $error) {
+							echo '<span style="color:red;">'.$error.'</span>';
+						}
+					}
+					?>
+					<?php if ($username == 'meryem' && $password == '1928') {
+							header("location: landingPage.php");
+						} else {
+							echo '<span style="color:red;">Invalid credentials</span>';
+						}
+					?>
 					<div class="mb-3">
 						<label for="username" class="form-label">Username</label>
 						<input type="text" name="username" class="form-control" id="username">
