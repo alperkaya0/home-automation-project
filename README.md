@@ -4,7 +4,7 @@ Most of Alper's commits don't show up at contributes page.
 
 # Home Automation System
 
-This is a web-based home automation system that allows you to control your home appliances remotely. It includes a frontend and a backend, both written in Html, Css, Bootstrap, Chart.js AND PHP. The frontend is built using BootStrap, while the backend is built using PHP.  Alper Kaya 20200808002, Meryem Ahıskalı 20200808054<br>
+This is a web-based home automation system that allows you to control your home appliances remotely. It includes a frontend and a backend, both written in Html, Css, Bootstrap, Chart.js AND PHP. The frontend is built using BootStrap, while the backend is built using PHP. We use MySQL for database operation. Alper Kaya 20200808002, Meryem Ahıskalı 20200808054<br>
 
 ## Features
 
