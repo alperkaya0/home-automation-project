@@ -34,7 +34,7 @@ $errors = array();
 		} else {
 		$username=$_POST['username'];
 			if(!preg_match('/^[a-zA-ZğĞıİöÖçÇşŞüÜ\s]+$/u',$username)){
-				$errors['username']='username must be letters and spaces only<br />';
+				$errors['username']='Username must be letters and spaces only<br />';
 			}
 
 		}
@@ -43,7 +43,7 @@ $errors = array();
 		} else {
 		$password=$_POST['password'];
 			if(!preg_match('/^[0-9]+$/',$password)){
-				$errors['password']='password must be only numbers';
+				$errors['password']='Password must be only numbers';
 			}
 
 		}
@@ -60,13 +60,13 @@ $errors = array();
 				<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 					<?php if (!empty($errors)) {
 						foreach ($errors as $error) {
-							echo '<span style="color:red;">'.$error.'</span>';
+							echo '<span style="color:red;">'.$error.'</span><br>';
 						}
 					}
 					?>
-					<?php if ($username == 'meryem' && $password == '1928') {
+					<?php if (isset($username) && ($username == 'meryem' && $password == '1928')) {
 							header("location: landingPage.php");
-						} else {
+						} else if (isset($username)) {
 							echo '<span style="color:red;">Invalid credentials</span>';
 						}
 					?>
