@@ -50,22 +50,17 @@ $errors = array();
 
 
 if (!empty($errors)) {
-foreach ($errors as $error) {
-	echo $error;
-}
-} else {
-
-	if ($username == 'meryem' && $password == '1928') {
-	
-			header("location: landingPage.php");
-		
-	} else {
-		echo "Invalid credentials";
+	foreach ($errors as $error) {
+		echo $error;
 	}
+	if ($username == 'meryem' && $password == '1928') {
+		
+		header("location: landingPage.php");
 
-}
-
-
+	} else {
+	echo "Invalid credentials";
+	}
+	}
 }
 
 	?>
@@ -77,6 +72,7 @@ foreach ($errors as $error) {
 			<div class="col-4"></div>
 			<div class="col-3 ms-5">
 				<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+					<span id="errorSpan" style="color:red;"></span>
 					<div class="mb-3">
 						<label for="username" class="form-label">Username</label>
 						<input type="text" name="username" class="form-control" id="username">
