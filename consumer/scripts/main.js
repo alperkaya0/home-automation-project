@@ -2,7 +2,7 @@ function onLoad() {
     //LOAD CHARTS
     loadCharts();
     //LOAD WELCOMING MESSAGE
-    fetch('http://localhost/home-automation-project/consumer/buttons-backend/getFullName.php', {
+    fetch('./buttons-backend/getFullName.php', {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -14,7 +14,7 @@ function onLoad() {
             document.getElementById("welcoming-message").innerHTML = "Welcome Back, " + response + "<span class=\"badge bg-secondary\">Account Holder</span>";
         });
     //LOAD EMERGENCY PART
-    fetch('http://localhost/home-automation-project/consumer/buttons-backend/buttons_emergency.php', {
+    fetch('./buttons-backend/buttons_emergency.php', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -34,7 +34,7 @@ function onLoad() {
         }
     });
     //LOAD AC PART
-    fetch('http://localhost/home-automation-project/consumer/buttons-backend/buttons_ac.php', {
+    fetch('./buttons-backend/buttons_ac.php', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -54,7 +54,7 @@ function onLoad() {
         }
     });
     //LOAD WEATHER PART
-    fetch('http://localhost/home-automation-project/consumer/buttons-backend/buttons_weather.php', {
+    fetch('./buttons-backend/buttons_weather.php', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -70,7 +70,7 @@ function onLoad() {
         p.innerHTML = response;
     });
     //LOAD LIGHTS PART
-    fetch('http://localhost/home-automation-project/consumer/buttons-backend/buttons_lights.php', {
+    fetch('./buttons-backend/buttons_lights.php', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -91,7 +91,7 @@ function onLoad() {
         }
     });
     //LOAD WINDOW BLIND PART
-    fetch('http://localhost/home-automation-project/consumer/buttons-backend/buttons_window.php', {
+    fetch('./buttons-backend/buttons_window.php', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -109,7 +109,7 @@ function onLoad() {
         }
     });
     //LOAD TEMPERATURE PART
-    fetch('http://localhost/home-automation-project/consumer/buttons-backend/buttons_temperature.php', {
+    fetch('./buttons-backend/buttons_temperature.php', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -129,7 +129,7 @@ function onClickEmergency() {
     //<?php echo '<img src="./images/' . ($_SESSION['isEmergency'] ? "emergency" : "nonEmergency") . '.png" class="card-img-top" alt="..." height="235" style="object-fit: contain">' ?>
     let img = document.getElementById("emergencyImage");
     let p   = document.getElementById("emergencyParagraph");
-    fetch('http://localhost/home-automation-project/consumer/buttons-backend/buttons_emergency.php', {
+    fetch('./buttons-backend/buttons_emergency.php', {
         method: 'POST',
         body: JSON.stringify({
             isEmergency: (img.getAttribute("src") == "./images/emergency.png" ? "false" : "true")
@@ -158,7 +158,7 @@ function onClickAc() {
     //<?php echo '<img src="./images/' . ($_SESSION['isEmergency'] ? "emergency" : "nonEmergency") . '.png" class="card-img-top" alt="..." height="235" style="object-fit: contain">' ?>
     let img = document.getElementById("acGif");
     let p   = document.getElementById("acParagraph");
-    fetch('http://localhost/home-automation-project/consumer/buttons-backend/buttons_ac.php', {
+    fetch('./buttons-backend/buttons_ac.php', {
         method: 'POST',
         body: JSON.stringify({
             isAcOn: (img.getAttribute("src") == "./images/workingFan.gif" ? "false" : "true")
@@ -187,7 +187,7 @@ function onClickLightsOn() {
     //<?php echo '<img src="./images/' . ($_SESSION['isEmergency'] ? "emergency" : "nonEmergency") . '.png" class="card-img-top" alt="..." height="235" style="object-fit: contain">' ?>
     let img = document.getElementById("lightsImage");
     let p   = document.getElementById("lightsParagraph");
-    fetch('http://localhost/home-automation-project/consumer/buttons-backend/buttons_lights.php', {
+    fetch('./buttons-backend/buttons_lights.php', {
         method: 'POST',
         body: JSON.stringify({
             isLightsOn: (img.getAttribute("src") == "./images/lightsOn.png" ? "false" : "true")
@@ -215,7 +215,7 @@ function onClickWindow() {
     //change image of emergency too
     //<?php echo '<img src="./images/' . ($_SESSION['isEmergency'] ? "emergency" : "nonEmergency") . '.png" class="card-img-top" alt="..." height="235" style="object-fit: contain">' ?>
     let img = document.getElementById("blindsImage");
-    fetch('http://localhost/home-automation-project/consumer/buttons-backend/buttons_window.php', {
+    fetch('./buttons-backend/buttons_window.php', {
         method: 'POST',
         body: JSON.stringify({
             isWindowBlindOn: (img.getAttribute("src") == "./images/blindsOpened.png" ? "false" : "true")
@@ -241,7 +241,7 @@ function onClickTemperatureUp() {
     //change image of emergency too
     //<?php echo '<img src="./images/' . ($_SESSION['isEmergency'] ? "emergency" : "nonEmergency") . '.png" class="card-img-top" alt="..." height="235" style="object-fit: contain">' ?>
     let p = document.getElementById("temperatureParagraph");
-    fetch('http://localhost/home-automation-project/consumer/buttons-backend/buttons_temperature.php', {
+    fetch('./buttons-backend/buttons_temperature.php', {
         method: 'POST',
         body: JSON.stringify({
             temperature: parseInt(p.innerHTML) + 1
@@ -263,7 +263,7 @@ function onClickTemperatureDown() {
     //change image of emergency too
     //<?php echo '<img src="./images/' . ($_SESSION['isEmergency'] ? "emergency" : "nonEmergency") . '.png" class="card-img-top" alt="..." height="235" style="object-fit: contain">' ?>
     let p = document.getElementById("temperatureParagraph");
-    fetch('http://localhost/home-automation-project/consumer/buttons-backend/buttons_temperature.php', {
+    fetch('./buttons-backend/buttons_temperature.php', {
         method: 'POST',
         body: JSON.stringify({
             temperature: parseInt(p.innerHTML) - 1
@@ -281,7 +281,7 @@ function onClickTemperatureDown() {
 }
 
 function loadCharts() {
-    fetch('http://localhost/home-automation-project/consumer/charts-backend/charts_temperature.php', {
+    fetch('./charts-backend/charts_temperature.php', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -343,7 +343,7 @@ function loadCharts() {
         });
     })
     
-    fetch('http://localhost/home-automation-project/consumer/charts-backend/charts_light_usage.php', {
+    fetch('./charts-backend/charts_light_usage.php', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -377,7 +377,7 @@ function loadCharts() {
     });
 
     
-    fetch('http://localhost/home-automation-project/consumer/charts-backend/charts_energy_consumption.php', {
+    fetch('./charts-backend/charts_energy_consumption.php', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -401,7 +401,7 @@ function loadCharts() {
         });
     });
 
-    fetch('http://localhost/home-automation-project/consumer/charts-backend/charts_weather.php', {
+    fetch('./charts-backend/charts_weather.php', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
