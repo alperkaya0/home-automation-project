@@ -1,6 +1,0 @@
-isLightsOn=true
-temperature=0.5
-isAcOn=true
-isWindowBlindOn=false
-weatherForecast=sunny
-isEmergency=true
