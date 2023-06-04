@@ -64,9 +64,9 @@ $errors = array();
 						}
 					}
 					?>
-					<?php if ($username == 'meryem' && $password == '1928') {
+					<?php if (isset($username) && ($username == 'meryem' && $password == '1928')) {
 							header("location: landingPage.php");
-						} else {
+						} else if (isset($username)) {
 							echo '<span style="color:red;">Invalid credentials</span>';
 						}
 					?>

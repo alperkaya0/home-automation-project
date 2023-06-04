@@ -34,6 +34,10 @@
     <?php include "../navbar.php" ?>
 
         <div class="mt-4 mb-5 mx-5"><h2>Welcome Back, Meryem Ahıskalı<span class="badge bg-primary">Admin</span></h2></div>
+        
+        <?php
+            
+        ?>
 
         <div class="shadow-lg p-3 mb-5 mx-5 bg-body rounded">Control Panel</div>
 
