@@ -18,40 +18,29 @@ if(!$conn)
 	echo "connection error: " . mysqli_connect_error();
 }
 
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-$username = $_POST['username'];
-$password = $_POST['password'];
-
-
-$errors = array();
+if(isset($_POST["submit"])){
+	$name=$_POST["name"];
+	$surname=$_POST["surname"];
+	$username=$_POST["username"];
+	$password=$_POST["password"];
+	$duplicate=mysqli_query($conn,"SELECT * FROM register WHERE username='$username'");
 
 
+	if(mysqli_num_rows($duplicate)>0){
+		echo "<script> alert('Username has already taken'); </script>";
+		
+	}else{
+		$query = "INSERT INTO register VALUES('$name','$surname','$username','$password')";
+      mysqli_query($conn, $query);
+		 
+		echo "<script> alert('registration success'); </script>";
 
-		if (empty($username)) {
-		$errors['username'] = 'A username is required <br />';
-		} else {
-		$username=$_POST['username'];
-			if(!preg_match('/^[a-zA-ZğĞıİöÖçÇşŞüÜ\s]+$/u',$username)){
-				$errors['username']='username must be letters and spaces only<br />';
-			}
-
-		}
-		if (empty($password)) {
-		$errors['password'] = 'A password is required <br />';
-		} else {
-		$password=$_POST['password'];
-			if(!preg_match('/^[0-9]+$/',$password)){
-				$errors['password']='password must be only numbers';
-			}
-
-		}
+	}
 }
 
 	?>
 
-	<div class="shadow p-3 my-5 mx-5 bg-body rounded">Please Login To Proceed</div>
+	<div class="shadow p-3 my-5 mx-5 bg-body rounded">Please Signup To Proceed</div>
 
 	<div class="container mt-5">
 		<div class="row align-items-center">
@@ -64,12 +53,16 @@ $errors = array();
 						}
 					}
 					?>
-					<?php if (isset($username) && ($username == 'meryem' && $password == '1928')) {
-							header("location: landingPage.php");
-						} else if (isset($username)) {
-							echo '<span style="color:red;">Invalid credentials</span>';
-						}
-					?>
+					<div class="mb-3">
+						<label for="username" class="form-label">Name</label>
+						<input type="text" name="name" class="form-control" id="name">
+						
+					</div>
+					<div class="mb-3">
+						<label for="username" class="form-label">Surname</label>
+						<input type="text" name="surname" class="form-control" id="surname">
+						
+					</div>
 					<div class="mb-3">
 						<label for="username" class="form-label">Username</label>
 						<input type="text" name="username" class="form-control" id="username">
@@ -80,7 +73,7 @@ $errors = array();
 						<input name="password" type="password" class="form-control" id="password">
 						
 					</div>
-					<button type="submit" class="btn btn-primary" value="Login">Submit</button>
+					<button type="submit" name="submit" class="btn btn-primary" >Submit</button>
 				</form>
 			</div>
 		</div>
