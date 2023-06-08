@@ -55,8 +55,6 @@ if(!$conn)
         $new=$_POST["deviceName"];
     
     
-  
-
         if($new=="light"){
 
             $new=true;
@@ -65,22 +63,12 @@ if(!$conn)
             $c=false;
             $d=false;
             $e=false;
-            $selectQuery = "SELECT COUNT(*) AS count FROM device WHERE username = '".$_SESSION["username"]."' AND light = 1";
-            $resultCheck = mysqli_query($conn, $selectQuery);
-
-            if ($resultCheck) {
-            $rowNew = mysqli_fetch_assoc($resultCheck);
-            $countNew = $rowNew['count'];
-
-            if ($countNew == 0) {
+            
+            
                 $newquery = "INSERT INTO device VALUES('".$_SESSION["username"]."','$new','$a','$b','$c','$d','$e')";
                 mysqli_query($conn, $newquery);
                 
-            }else{
-                echo "this device already exists.";
-            }
-
-        }
+          
              
         }else if( $new=="airConditioning"){
             
@@ -91,20 +79,10 @@ if(!$conn)
             $d=false;
             $e=false;
     
-            $selectQuery = "SELECT COUNT(*) AS count FROM device WHERE username = '".$_SESSION["username"]."' AND airConditioning = 1";
-            $resultCheck = mysqli_query($conn, $selectQuery);
-
-            if ($resultCheck) {
-            $rowNew = mysqli_fetch_assoc($resultCheck);
-            $countNew = $rowNew['count'];
-
-            if ($countNew == 0) {
+            
                 $query = "INSERT INTO device VALUES('".$_SESSION["username"]."','$a','$new','$b','$c','$d','$e')";
                 mysqli_query($conn, $query);
-            }else{
-                echo "this device already exists.";
-            }
-            
+           
               
         }else if( $new=="blinds"){
             
@@ -114,21 +92,11 @@ if(!$conn)
             $c=false;
             $d=false;
             $e=false;
-            $selectQuery = "SELECT COUNT(*) AS count FROM device WHERE username = '".$_SESSION["username"]."' AND blinds = 1";
-            $resultCheck = mysqli_query($conn, $selectQuery);
-
-            if ($resultCheck) {
-            $rowNew = mysqli_fetch_assoc($resultCheck);
-            $countNew = $rowNew['count'];
-
-            if ($countNew == 0) {
+          
                 $query = "INSERT INTO device VALUES('".$_SESSION["username"]."','$a','$b','$new','$c','$d','$e')";
                 mysqli_query($conn, $query);
-            }else{
-                echo "this device already exists.";
-            }
-         
-        }
+          
+        
         }else if($new=="alarm"){
             $new=true;
             $a=false;
@@ -136,21 +104,10 @@ if(!$conn)
             $c=false;
             $d=false;
             $e=false;
-            $selectQuery = "SELECT COUNT(*) AS count FROM device WHERE username = '".$_SESSION["username"]."' AND alarm = 1";
-            $resultCheck = mysqli_query($conn, $selectQuery);
-
-            if ($resultCheck) {
-            $rowNew = mysqli_fetch_assoc($resultCheck);
-            $countNew = $rowNew['count'];
-
-            if ($countNew == 0) {
+           
                 $query = "INSERT INTO device VALUES('".$_SESSION["username"]."','$a','$b','$c','$new','$d','$e')";
             mysqli_query($conn, $query);
-            }else{
-                echo "this device already exists.";
-            }
-          
-        }
+           
         }else if($new=="weather"){
             $new=true;
             $a=false;
@@ -180,7 +137,6 @@ if(!$conn)
     }
 
 
-    }
     
 
 	
