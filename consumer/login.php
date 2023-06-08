@@ -54,6 +54,31 @@
             if ($result) {
                 if (mysqli_num_rows($result) > 0) {
                     // Giriş başarılı
+
+                    $sql = "SELECT * FROM user_option WHERE name = '$username'";
+                    $result = mysqli_query($conn, $sql);
+                    
+                    if (mysqli_num_rows($result) == 0) {
+                        $sql = "SELECT id FROM user_option ORDER BY id DESC";
+                        $result = mysqli_query($conn, $sql);
+                        $row = $result->fetch_assoc();
+                        $num = intval($row["id"]) + 1;
+
+                        $sql = "INSERT INTO user_option
+                        VALUES
+                        (".$num.", '2023-06-08', '$username', 'isWindowBlindOn', 'false'),
+                        (".($num+1).", '2023-06-08', '$username', 'weatherForecast', 'sunny'),
+                        (".($num+2).", '2023-06-08', '$username', 'temperature', '10'),
+                        (".($num+3).", '2023-06-08', '$username', 'isLightsOn', 'false'),
+                        (".($num+4).", '2023-06-08', '$username', 'isEmergency', 'false'),
+                        (".($num+5).", '2023-06-08', '$username', 'isAcOn', 'false')";
+                        $_result = mysqli_query($conn, $sql);
+
+                        if (!$_result) {
+                            echo mysqli_error($conn);
+                        }
+                    }
+
                     echo "Successful login";
                     header("Location: landingPage.php");
                     $_SESSION["username"] = $username;
