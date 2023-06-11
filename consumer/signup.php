@@ -33,7 +33,7 @@ if(isset($_POST["submit"])){
 		$query = "INSERT INTO register VALUES('$name','$surname','$username','$password')";
       mysqli_query($conn, $query);
 		 
-		echo "<script> alert('registration success'); </script>";
+	  header("location: login.php");
 
 	}
 }
