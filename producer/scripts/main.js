@@ -112,6 +112,52 @@ function onLoad() {
         let p = document.getElementById("temperatureParagraph");
         p.innerHTML = response;
     });
+    loadUnvisible();
+}
+
+function loadUnvisible() {
+    fetch('../producer/backend/get_devices.php', {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(response => {
+        console.log(JSON.stringify(response));
+        /*
+            lightsElement - light
+            airElement - airConditioning
+            windowElement - blinds
+            emergencyElement - alarm
+            weatherElement - weather
+            temperatureElement - temperature
+        */
+        if (response["light"] == 0) {
+            let element = document.getElementById("lightsElement");
+            element.setAttribute("hidden", true);
+        }
+        if (response["airConditioning"] == 0) {
+            let element = document.getElementById("airElement");
+            element.setAttribute("hidden", true);
+        }
+        if (response["blinds"] == 0) {
+            let element = document.getElementById("windowElement");
+            element.setAttribute("hidden", true);
+        }
+        if (response["alarm"] == 0) {
+            let element = document.getElementById("emergencyElement");
+            element.setAttribute("hidden", true);
+        }
+        if (response["weather"] == 0) {
+            let element = document.getElementById("weatherElement");
+            element.setAttribute("hidden", true);
+        }
+        if (response["temperature"] == 0) {
+            let element = document.getElementById("temperatureElement");
+            element.setAttribute("hidden", true);
+        }
+    });
 }
 
 function onClickEmergency() {

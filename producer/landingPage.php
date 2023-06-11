@@ -88,19 +88,19 @@
                 <div class="accordion-body">
                         <div class="container">
                             <div class="row justify-content-around">
-                                <div class="col text-center">
+                                <div id="lightsElement" class="col text-center">
                                     <button onclick="onClickLightsOn();" class="btn btn-primary" type="button">Lights Toggle</button>
                                     <p><b id="lightsParagraph">ON</b></p>
                                 </div>
-                                <div class="col text-center">
+                                <div id="airElement" class="col text-center">
                                     <button class="btn btn-primary" type="button" onclick="onClickAc();">AC Toggle</button>
                                     <p><b id="acParagraph">ON</b></p>
                                 </div>
-                                <div class="col text-center">
+                                <div id="windowElement" class="col text-center">
                                     <button class="btn btn-primary" type="button" onclick="onClickWindow();">Window Toggle</button>
                                     <p><b id="blindsParagraph">ON</b></p>
                                 </div>
-                                <div class="col text-center">
+                                <div id="emergencyElement" class="col text-center">
                                     <button class="btn btn-primary" type="button" onclick="onClickEmergency();">Emergency</button>
                                     <p><b id="emergencyParagraph">ON</b></p>
                                 </div>
@@ -117,7 +117,7 @@
                 </h2>
                 <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                    <div class="container">
+                    <div id="temperatureElement" class="container">
                         <div class="row justify-content-between">
                             <div class="col">
                                 <input id="temperatureInput" type="text" placeholder="Please enter temperature(as Celcius)..." name="temperature" style="width: 18rem; height: 2.1rem;">
@@ -140,7 +140,7 @@
                 </h2>
                 <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
-                    <div class="container">
+                    <div id="weatherElement" class="container">
                         <div class="row justify-content-between">
                             <div class="col">
                                 <form method="POST">
