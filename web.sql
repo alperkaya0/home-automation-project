@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 08 Haz 2023, 17:16:49
+-- Üretim Zamanı: 11 Haz 2023, 16:50:28
 -- Sunucu sürümü: 10.4.28-MariaDB
 -- PHP Sürümü: 8.0.28
 
@@ -5542,7 +5542,15 @@ INSERT INTO `device` (`username`, `light`, `airConditioning`, `blinds`, `alarm`,
 ('alperkaya', 0, 0, 1, 0, 0, 0),
 ('alperkaya', 0, 0, 1, 0, 0, 0),
 ('alperkaya', 0, 1, 0, 0, 0, 0),
-('alperkaya', 0, 0, 0, 1, 0, 0);
+('alperkaya', 0, 0, 0, 1, 0, 0),
+('test', 1, 0, 0, 0, 0, 0),
+('test', 0, 0, 0, 1, 0, 0),
+('test', 0, 0, 0, 0, 1, 0),
+('test', 0, 0, 0, 0, 0, 1),
+('test', 0, 1, 0, 0, 0, 0),
+('testtwo', 0, 0, 0, 0, 1, 0),
+('testtwo', 0, 0, 0, 1, 0, 0),
+('testtwo', 1, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -5585,7 +5593,10 @@ INSERT INTO `register` (`name`, `surname`, `username`, `password`) VALUES
 ('john', 'doe', 'johnDoe', '9898'),
 ('john', 'week', 'johnweek', '1234'),
 ('meryem', 'deleter', 'mali', '12'),
-('meryem', 'ahıskalı', 'meryemAhiskali', '1234');
+('meryem', 'ahıskalı', 'meryemAhiskali', '1234'),
+('test', 'test', 'test', '1234'),
+('test', 'test', 'test2', '12345'),
+('test', 'test', 'testtwo', '1234');
 
 -- --------------------------------------------------------
 
@@ -5612,7 +5623,7 @@ INSERT INTO `user_option` (`id`, `date`, `name`, `_option`, `value`) VALUES
 (4, '2023-06-08', 'alperkaya', 'isEmergency', 'true'),
 (5, '2023-06-08', 'alperkaya', 'isAcOn', 'false'),
 (7, '2023-06-08', 'alperkaya', 'isWindowBlindOn', 'false'),
-(8, '2023-06-08', 'meryemAhiskali', 'isWindowBlindOn', 'false'),
+(8, '2023-06-08', 'meryemAhiskali', 'isWindowBlindOn', 'true'),
 (9, '2023-06-08', 'meryemAhiskali', 'weatherForecast', 'sunny'),
 (10, '2023-06-08', 'meryemAhiskali', 'temperature', '10'),
 (11, '2023-06-08', 'meryemAhiskali', 'isLightsOn', 'false'),
@@ -5623,7 +5634,19 @@ INSERT INTO `user_option` (`id`, `date`, `name`, `_option`, `value`) VALUES
 (16, '2023-06-08', 'mali', 'temperature', '10'),
 (17, '2023-06-08', 'mali', 'isLightsOn', 'false'),
 (18, '2023-06-08', 'mali', 'isEmergency', 'false'),
-(19, '2023-06-08', 'mali', 'isAcOn', 'false');
+(19, '2023-06-08', 'mali', 'isAcOn', 'false'),
+(20, '2023-06-08', 'test', 'isWindowBlindOn', 'false'),
+(21, '2023-06-08', 'test', 'weatherForecast', 'sunny'),
+(22, '2023-06-08', 'test', 'temperature', '10'),
+(23, '2023-06-08', 'test', 'isLightsOn', 'false'),
+(24, '2023-06-08', 'test', 'isEmergency', 'false'),
+(25, '2023-06-08', 'test', 'isAcOn', 'false'),
+(26, '2023-06-08', 'testtwo', 'isWindowBlindOn', 'false'),
+(27, '2023-06-08', 'testtwo', 'weatherForecast', 'windy'),
+(28, '2023-06-08', 'testtwo', 'temperature', '10'),
+(29, '2023-06-08', 'testtwo', 'isLightsOn', 'false'),
+(30, '2023-06-08', 'testtwo', 'isEmergency', 'false'),
+(31, '2023-06-08', 'testtwo', 'isAcOn', 'false');
 
 --
 -- Dökümü yapılmış tablolar için indeksler
