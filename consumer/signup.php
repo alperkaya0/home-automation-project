@@ -26,15 +26,32 @@ if(isset($_POST["submit"])){
 	$duplicate=mysqli_query($conn,"SELECT * FROM register WHERE username='$username'");
 
 
-	if(mysqli_num_rows($duplicate)>0){
-		echo "<script> alert('Username has already taken'); </script>";
-		
-	}else{
-		$query = "INSERT INTO register VALUES('$name','$surname','$username','$password')";
-      mysqli_query($conn, $query);
-		 
-	  header("location: login.php");
+	 if (empty($name) || empty($surname) || empty($username) || empty($password)) {
+        echo '<span style="color:red;">Please fill in all fields.</span>';
+    } else if (!preg_match("/^[a-zA-Z]+$/", $name)) {
+        echo '<span style="color:red;">Name can only contain letters (a-zA-Z).</span>';
+    }
+    // Surname için sadece harfler kontrolü
+    else if (!preg_match("/^[a-zA-Z]+$/", $surname)) {
+        echo '<span style="color:red;">Surname can only contain letters (a-zA-Z).</span>';
+    }
+	else if (!preg_match("/^[a-zA-Z]+$/", $username)) {
+        echo '<span style="color:red;">Username can only contain letters (a-zA-Z).</span>';
+    }
+	else if (!preg_match("/^[0-9]+$/", $password)) {
+        echo '<span style="color:red;">Password can only contain numbers (0-9).</span>';
+    }
+	else{
 
+		$duplicate = mysqli_query($conn, "SELECT * FROM register WHERE username='$username'");
+        if (mysqli_num_rows($duplicate) > 0) {
+            echo '<span style="color:red;">Username already exists.</span>';
+        } else {
+            // Hata olmadığı durumda veritabanına kaydetme işlemi yapabilirsiniz
+            $query = "INSERT INTO register VALUES('$name','$surname','$username','$password')";
+            mysqli_query($conn, $query);
+            header("location: login.php");
+        }
 	}
 }
 
