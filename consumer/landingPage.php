@@ -63,10 +63,18 @@ if(!$conn)
             $c=false;
             $d=false;
             $e=false;
+
+            $checkQuery = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."' AND light =1";
+            $result = mysqli_query($conn, $checkQuery);
             
-            
+            if (mysqli_num_rows($result) > 0) {
+                echo "light device already exists!!";
+
+            }else{
+                
                 $newquery = "INSERT INTO device VALUES('".$_SESSION["username"]."','$new','$a','$b','$c','$d','$e')";
                 mysqli_query($conn, $newquery);
+            }
                 
           
              
@@ -79,9 +87,20 @@ if(!$conn)
             $d=false;
             $e=false;
     
+            $checkQuery = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."'  AND airConditioning =1";
+            $result = mysqli_query($conn, $checkQuery);
             
-                $query = "INSERT INTO device VALUES('".$_SESSION["username"]."','$a','$new','$b','$c','$d','$e')";
-                mysqli_query($conn, $query);
+            if (mysqli_num_rows($result) > 0) {
+                echo "airConditioning device already exists!!";
+
+            }else{
+                
+                $newquery = "INSERT INTO device VALUES('".$_SESSION["username"]."','$a','$new','$b','$c','$d','$e')";
+                mysqli_query($conn, $newquery);
+            }
+                
+            
+               
            
               
         }else if( $new=="blinds"){
@@ -93,8 +112,18 @@ if(!$conn)
             $d=false;
             $e=false;
           
-                $query = "INSERT INTO device VALUES('".$_SESSION["username"]."','$a','$b','$new','$c','$d','$e')";
-                mysqli_query($conn, $query);
+              
+                $checkQuery = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."'  AND blinds =1";
+                $result = mysqli_query($conn, $checkQuery);
+                
+                if (mysqli_num_rows($result) > 0) {
+                    echo "blinds device already exists!!";
+    
+                }else{
+                    $newquery = "INSERT INTO device VALUES('".$_SESSION["username"]."','$a','$b','$new','$c','$d','$e')";
+                    mysqli_query($conn, $newquery);
+    
+                }
           
         
         }else if($new=="alarm"){
@@ -105,8 +134,19 @@ if(!$conn)
             $d=false;
             $e=false;
            
-                $query = "INSERT INTO device VALUES('".$_SESSION["username"]."','$a','$b','$c','$new','$d','$e')";
-            mysqli_query($conn, $query);
+            $checkQuery = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."'  AND alarm =1";
+                $result = mysqli_query($conn, $checkQuery);
+                
+                if (mysqli_num_rows($result) > 0) {
+                    echo "alarm device already exists!!";
+    
+                }else{
+                    $newquery = "INSERT INTO device VALUES('".$_SESSION["username"]."','$a','$b','$c','$new','$d','$e')";
+            mysqli_query($conn, $newquery);
+    
+                }
+          
+               
            
         }else if($new=="weather"){
             $new=true;
@@ -115,9 +155,18 @@ if(!$conn)
             $c=false;
             $d=false;
             $e=false;
-    
+            $checkQuery = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."'  AND weather =1";
+            $result = mysqli_query($conn, $checkQuery);
+            
+            if (mysqli_num_rows($result) > 0) {
+                echo "weather device already exists!!";
+
+            }else{
+                
             $query = "INSERT INTO device VALUES('".$_SESSION["username"]."','$a','$b','$c','$d','$new','$e')";
             mysqli_query($conn, $query);
+
+            }
            
         }else if ($new=="temperature"){
             $new=true;
@@ -127,9 +176,20 @@ if(!$conn)
             $d=false;
             $e=false;
     
-            $query = "INSERT INTO device VALUES('".$_SESSION["username"]."','$a','$b','$c','$d','$e','$new')";
-            mysqli_query($conn, $query);
-           
+            $checkQuery = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."'  AND temperature =1";
+            $result = mysqli_query($conn, $checkQuery);
+            
+            if (mysqli_num_rows($result) > 0) {
+                echo "temperature device already exists!!";
+
+            }else{
+                
+                $query = "INSERT INTO device VALUES('".$_SESSION["username"]."','$a','$b','$c','$d','$e','$new')";
+                mysqli_query($conn, $query);
+               
+
+            }
+        
         }else{
             echo "invalid device name";
         }
@@ -221,7 +281,7 @@ if(!$conn)
             </div>';
 
         } else {
-           
+          
         }
   }
   echo '<br>';
