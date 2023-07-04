@@ -222,10 +222,11 @@ if(!$conn)
     </div>
 
     <div class="shadow-lg p-3 mb-5 mx-5 bg-body rounded">Your Sensors And Controls    
-    
-    
-    <button onclick="showForm()">Add a device</button>
+    <br>
+    <br>
 
+   
+    <button onclick="showForm()">Add a device</button> 
     <form method="POST" id="deviceForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
     <div class="form-group">
         <select name="deviceName" class="form-control custom-select" id="deviceName">
@@ -241,6 +242,8 @@ if(!$conn)
     <br>
     <button type="submit" name="deviceSubmit" class="btn btn-primary">Submit</button>
 </form>
+
+
 
     </div>
     
