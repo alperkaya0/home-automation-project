@@ -227,24 +227,21 @@ if(!$conn)
     <button onclick="showForm()">Add a device</button>
 
     <form method="POST" id="deviceForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+    <div class="form-group">
+        <select name="deviceName" class="form-control custom-select" id="deviceName">
+            <option disabled selected>--Select--</option>
+            <option value="alarm">Alarm</option>
+            <option value="weather">Weather</option>
+            <option value="airConditioning">Air Conditioning</option>
+            <option value="light">Light</option>
+            <option value="blinds">Blinds</option>
+            <option value="temperature">Temperature</option>
+        </select>
+    </div>
+    <br>
+    <button type="submit" name="deviceSubmit" class="btn btn-primary">Submit</button>
+</form>
 
-                         <div class="mb-3">
-                            <br>  
-                            <label for="info">alarm  weather airConditioning  light  blinds  temperature</label>
-
-
-						<input type="text" name="deviceName" class="form-control" placeholder="device name" id="deviceName">
-                      
-					
-						
-					</div>
-                   
-        
-        <br>
-        <button type="submit" name="deviceSubmit" class="btn btn-primary" >Submit</button>
-
-
-    </form>
     </div>
     
     <?php
