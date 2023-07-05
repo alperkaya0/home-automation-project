@@ -11,8 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $body = file_get_contents('php://input');
     echo json_encode($body);
     $isWindowBlindOn = json_decode($body)->isWindowBlindOn;
+    $currentDate = date('Y-m-d'); // Get the current date
+    $sql = "INSERT INTO user_option (date, name, _option, value) VALUES ('".$currentDate."', '".$_SESSION["username"]."', 'isWindowBlindOn', '".$isWindowBlindOn."');";
 
-    $sql = "UPDATE user_option SET value = '".$isWindowBlindOn."' WHERE name = '".$_SESSION["username"]."' AND _option = 'isWindowBlindOn';";
     $result = mysqli_query($conn, $sql);
 } else {
     $sql = "SELECT value FROM `user_option` WHERE name = '".$_SESSION["username"]."' AND _option = 'isWindowBlindOn'; ";
