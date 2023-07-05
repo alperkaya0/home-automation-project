@@ -27,25 +27,12 @@ $password = $_POST['password'];
 
 $errors = array();
 
-
-
-		if (empty($username)) {
-		$errors['username'] = 'A username is required <br />';
-		} else {
-		$username=$_POST['username'];
-			if(!preg_match('/^[a-zA-ZğĞıİöÖçÇşŞüÜ\s]+$/u',$username)){
-				$errors['username']='Username must be letters and spaces only<br />';
-			}
-
-		}
-		if (empty($password)) {
-		$errors['password'] = 'A password is required <br />';
-		} else {
-		$password=$_POST['password'];
-			if(!preg_match('/^[0-9]+$/',$password)){
-				$errors['password']='Password must be only numbers';
-			}
-
+		if (empty($username) || empty($password) ) {
+			$errors[] = 'Please fill in all fields.';
+		}else if (!preg_match("/^[a-zA-Z]+$/", $username)) {
+			$errors[] = 'Username can only contain letters (a-zA-Z). <br />';
+		}else if (!preg_match("/^[0-9]+$/", $password)) {
+			$errors[] = 'Password can only contain numbers (0-9). <br />';
 		}
 }
 
