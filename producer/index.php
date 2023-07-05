@@ -56,6 +56,7 @@ $errors = array();
 						} else if (isset($username)) {
 							echo '<span style="color:red;">Invalid credentials</span>';
 							//echo try
+							//çıkarma
 						}
 					?>
 					<div class="mb-3">
