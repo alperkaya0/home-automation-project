@@ -11,8 +11,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $body = file_get_contents('php://input');
     echo json_encode($body);
     $isLightsOn = json_decode($body)->isLightsOn;
+    $currentDate = date('Y-m-d'); // Get the current date
+    $sql = "INSERT INTO user_option (date, name, _option, value) VALUES ('".$currentDate."', '".$_SESSION["username"]."', 'isLigthsOn', '".$isLightsOn."');";
 
-    $sql = "UPDATE user_option SET value = '".$isLightsOn."' WHERE name = '".$_SESSION["username"]."' AND _option = 'isLightsOn';";
+
     $result = mysqli_query($conn, $sql);
 } else {
     $sql = "SELECT value FROM `user_option` WHERE name = '".$_SESSION["username"]."' AND _option = 'isLightsOn'; ";
