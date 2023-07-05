@@ -30,39 +30,28 @@ if(isset($_POST["submit"])){
 
 		if (empty($name) || empty($surname) || empty($username) || empty($password)) {
 			$errors[] = 'Please fill in all fields.';
-		} else {
-			if (!preg_match("/^[a-zA-Z]+$/", $name)) {
+		} else if (!preg_match("/^[a-zA-Z]+$/", $name)) {
 				$errors[] = 'Name can only contain letters (a-zA-Z).';
-			}
-			if (!preg_match("/^[a-zA-Z]+$/", $surname)) {
+		}else if (!preg_match("/^[a-zA-Z]+$/", $surname)) {
 				$errors[] = 'Surname can only contain letters (a-zA-Z).';
-			}
-			if (!preg_match("/^[a-zA-Z]+$/", $username)) {
+		}else if (!preg_match("/^[a-zA-Z]+$/", $username)) {
 				$errors[] = 'Username can only contain letters (a-zA-Z).';
-			}
-			if (!preg_match("/^[0-9]+$/", $password)) {
+		}else if (!preg_match("/^[0-9]+$/", $password)) {
 				$errors[] = 'Password can only contain numbers (0-9).';
-			}
-		}
-
-		if (!empty($errors)) {
-			foreach ($errors as $error) {
-				echo '<span style="color:red;">'.$error.'</span><br>';
-			}
-		}
-
+		}else{
 		
 
 		$duplicate = mysqli_query($conn, "SELECT * FROM register WHERE username='$username'");
         if (mysqli_num_rows($duplicate) > 0) {
-            echo '<span style="color:red;">Username already exists.</span>';
+			$errors[] =  'Username already exists';
         } else {
             // Hata olmadığı durumda veritabanına kaydetme işlemi yapabilirsiniz
             $query = "INSERT INTO register VALUES('$name','$surname','$username','$password')";
             mysqli_query($conn, $query);
             header("location: login.php");
-        
+        }
 	}
+	
 }
 
 	?>
@@ -74,9 +63,9 @@ if(isset($_POST["submit"])){
 			<div class="col-4"></div>
 			<div class="col-3 ms-5">
 				<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-					<?php if (!empty($errors)) {
+				<?php if (!empty($errors)) {
 						foreach ($errors as $error) {
-							echo '<span style="color:red;">'.$error.'</span>';
+							echo '<span style="color:red;">'.$error.'</span><br>';
 						}
 					}
 					?>
