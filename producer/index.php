@@ -55,6 +55,7 @@ $errors = array();
 							header("location: landingPage.php");
 						} else if (isset($username)) {
 							echo '<span style="color:red;">Invalid credentials</span>';
+							//echo try
 						}
 					?>
 					<div class="mb-3">
