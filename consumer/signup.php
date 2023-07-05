@@ -26,22 +26,32 @@ if(isset($_POST["submit"])){
 	$duplicate=mysqli_query($conn,"SELECT * FROM register WHERE username='$username'");
 
 
-	 if (empty($name) || empty($surname) || empty($username) || empty($password)) {
-        echo '<span style="color:red;">Please fill in all fields.</span>';
-    } else if (!preg_match("/^[a-zA-Z]+$/", $name)) {
-        echo '<span style="color:red;">Name can only contain letters (a-zA-Z).</span>';
-    }
-    // Surname için sadece harfler kontrolü
-    else if (!preg_match("/^[a-zA-Z]+$/", $surname)) {
-        echo '<span style="color:red;">Surname can only contain letters (a-zA-Z).</span>';
-    }
-	else if (!preg_match("/^[a-zA-Z]+$/", $username)) {
-        echo '<span style="color:red;">Username can only contain letters (a-zA-Z).</span>';
-    }
-	else if (!preg_match("/^[0-9]+$/", $password)) {
-        echo '<span style="color:red;">Password can only contain numbers (0-9).</span>';
-    }
-	else{
+	$errors = array();
+
+		if (empty($name) || empty($surname) || empty($username) || empty($password)) {
+			$errors[] = 'Please fill in all fields.';
+		} else {
+			if (!preg_match("/^[a-zA-Z]+$/", $name)) {
+				$errors[] = 'Name can only contain letters (a-zA-Z).';
+			}
+			if (!preg_match("/^[a-zA-Z]+$/", $surname)) {
+				$errors[] = 'Surname can only contain letters (a-zA-Z).';
+			}
+			if (!preg_match("/^[a-zA-Z]+$/", $username)) {
+				$errors[] = 'Username can only contain letters (a-zA-Z).';
+			}
+			if (!preg_match("/^[0-9]+$/", $password)) {
+				$errors[] = 'Password can only contain numbers (0-9).';
+			}
+		}
+
+		if (!empty($errors)) {
+			foreach ($errors as $error) {
+				echo '<span style="color:red;">'.$error.'</span><br>';
+			}
+		}
+
+		
 
 		$duplicate = mysqli_query($conn, "SELECT * FROM register WHERE username='$username'");
         if (mysqli_num_rows($duplicate) > 0) {
@@ -51,7 +61,7 @@ if(isset($_POST["submit"])){
             $query = "INSERT INTO register VALUES('$name','$surname','$username','$password')";
             mysqli_query($conn, $query);
             header("location: login.php");
-        }
+        
 	}
 }
 
