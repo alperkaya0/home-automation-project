@@ -162,7 +162,69 @@
                     </div>
                 </div>
                 </div>
+
+                </div>
+
+
+                <div class="container">
+                    <div class="row">
+                      <div class="col m-auto">
+                    <div class="card mt-5">
+                        <table class="table table-bordered">
+                            <tr>
+                            <td> Number </td>
+
+                                <td> Username </td>
+                                <td> Changes </td>
+                                <td> Change Time </td>
+                            </tr>
+                 <?php
+                    $sql = "SELECT * FROM user_option WHERE name = '".$_SESSION["username"]."'";
+
+                        $result = $conn->query($sql);
+
+                        if (!$result) {
+                            echo "Error executing the query: " . $conn->error;
+                        } else {
+                            $number = 1; // Initialize the number
+                            $counter = 0; // Initialize the counter
+                            $uniqueRows = array(); // Array to store unique rows
+
+                            while ($row = $result->fetch_assoc()) {
+                                
+                                if ($counter >= 6) { // Check if the counter is greater than or equal to 6
+                                    // Check if the current row is already in the uniqueRows array
+                                    if (!in_array($row, $uniqueRows, true)) {
+                                        echo "<tr>";
+                                        echo "<td>" . $number++ . "</td>"; // Increment and display the number
+                                        echo "<td><b id=\"userParagraph\">" . $_SESSION["username"] . "</b></td>";
+                                        echo "<td>" . $row['value'] . "</td>";
+                                        echo "<td>" . $row['date'] . "</td>";
+                                        echo "</tr>";
+
+                                        // Add the current row to the uniqueRows array
+                                        $uniqueRows[] = $row;
+                                    }
+                                } else {
+                                    $counter++; // Increment the counter for the first 6 rows
+                                }
+                            }
+
+                            if ($number === 1) {
+                                echo "<tr><td colspan='4'>No data found</td></tr>";
+                            }
+                        }
+
+                    ?>
+
+                                                                                            
+                                   
+
+                        </table>
+                    </div>
+                </div>
             </div>
+        </div>
             </div>
         
         <?php include '../toast.php' ?>
