@@ -11,8 +11,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $body = file_get_contents('php://input');
     echo json_encode($body);
     $temperature = json_decode($body)->temperature;
+   
+    $currentDate = date('Y-m-d'); // Get the current date
 
-    $sql = "UPDATE user_option SET value = '".$temperature."' WHERE name = '".$_SESSION["username"]."' AND _option = 'temperature';";
+    $sql = "INSERT INTO user_option (date, name, _option, value) VALUES ('".$currentDate."', '".$_SESSION["username"]."', 'temperature', '".$temperature."');";
+    
+    
+ //   $sql = "UPDATE user_option SET value = '".$temperature."' WHERE name = '".$_SESSION["username"]."' AND _option = 'temperature';";
     $result = mysqli_query($conn, $sql);
 } else {
     $sql = "SELECT value FROM `user_option` WHERE name = '".$_SESSION["username"]."' AND _option = 'temperature'; ";
