@@ -46,7 +46,8 @@ if(isset($_POST["submit"])){
 			$errors[] =  'Username already exists';
         } else {
             // Hata olmadığı durumda veritabanına kaydetme işlemi yapabilirsiniz
-            $query = "INSERT INTO register VALUES('$name','$surname','$username','$password')";
+			$hash = md5($password);
+            $query = "INSERT INTO register VALUES('$name','$surname','$username','$hash')";
             mysqli_query($conn, $query);
             header("location: login.php");
         }

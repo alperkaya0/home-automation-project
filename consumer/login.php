@@ -48,7 +48,8 @@
                 //echo $error;
             }
         } else {
-            $sql = "SELECT * FROM register WHERE username = '$username' AND password = '$password'";
+            $hash = md5($password);
+            $sql = "SELECT * FROM register WHERE username = '$username' AND password = '$hash'";
             $result = mysqli_query($conn, $sql);
 
             if ($result) {
