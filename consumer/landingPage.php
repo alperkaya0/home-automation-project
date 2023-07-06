@@ -552,7 +552,7 @@ if ($showTable) {
                     $result = mysqli_query($conn, $query);
                     if ($result && mysqli_num_rows($result) > 0) {
                       echo '<td>Temperature</td>
-                            <td>Ortalama Sıcaklık</td>
+                            <td>Average temperature</td>
                             <td>' . $averageValue . '</td>';
                     }
     echo '         </tr>
@@ -565,7 +565,7 @@ if ($showTable) {
                     $result = mysqli_query($conn, $query);
                     if ($result && mysqli_num_rows($result) > 0) {
                       echo '<td>Light</td>
-                            <td>Harcanan enerji</td>
+                            <td>Energy Consumption</td>
                             <td>' . $averageValue . 'kW</td>';
                     }
     echo '         </tr>
@@ -577,8 +577,8 @@ if ($showTable) {
                     $query = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."' AND blinds = 1";
                     $result = mysqli_query($conn, $query);
                     if ($result && mysqli_num_rows($result) > 0) {
-                    echo '<td>Blind</td>
-                            <td>Açılma sayısı</td>
+                    echo '<td>Blinds</td>
+                            <td>Number of Openings</td>
                             <td>' . $openCount . '</td>';
                     }
                     echo '</tr>
@@ -590,9 +590,9 @@ if ($showTable) {
                       $query = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."' AND airConditioning = 1";
                       $result = mysqli_query($conn, $query);
                       if ($result && mysqli_num_rows($result) > 0) {
-                        echo '<td>Airconditionign</td>
-                              <td>harcanan kw</td>
-                              <td>' . $averageValue . '</td>';
+                        echo '<td>Air Conditioning</td>
+                              <td>Energy Consumption</td>
+                              <td>' . $averageValue . '<kW/td>';
                       }
       echo '         </tr>
     
