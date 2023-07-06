@@ -121,6 +121,28 @@ function onLoad() {
         let p = document.getElementById("temperatureParagraph");
         p.innerHTML = response;
     });
+
+}
+
+function addDeviceDefault() {
+    var select = document.getElementById('deviceName');
+    var option = select.options[select.selectedIndex];
+    console.log(option.innerHTML);
+    fetch('../consumer/buttons-backend/buttons_submit_add_device_default.php', {
+        method: 'POST',
+        body: JSON.stringify({
+            device: option.innerHTML.toLowerCase()
+        }),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    })
+    .then(response => response.json())
+    .then(response => {
+        console.log(JSON.stringify(response));
+        debugger;
+    });
 }
 
 function onClickEmergency() {

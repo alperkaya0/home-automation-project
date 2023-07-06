@@ -240,7 +240,7 @@ if(!$conn)
         </select>
     </div>
     <br>
-    <button type="submit" name="deviceSubmit" class="btn btn-primary">Submit</button>
+    <button onclick="addDeviceDefault();" type="submit" name="deviceSubmit" class="btn btn-primary">Submit</button>
 </form>
 
 
