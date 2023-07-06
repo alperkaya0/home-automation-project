@@ -187,13 +187,13 @@
                             echo "Error executing the query: " . $conn->error;
                         } else {
                             $number = 1; // Initialize the number
-                            $counter = 0; // Initialize the counter
+                           // $counter = 0; // Initialize the counter
                             $uniqueRows = array(); // Array to store unique rows
 
                             while ($row = $result->fetch_assoc()) {
                                 
-                                if ($counter >= 6) { // Check if the counter is greater than or equal to 6
-                                    // Check if the current row is already in the uniqueRows array
+                              
+                              
                                     if (!in_array($row, $uniqueRows, true)) {
                                         echo "<tr>";
                                         echo "<td>" . $number++ . "</td>"; // Increment and display the number
@@ -205,9 +205,9 @@
                                         // Add the current row to the uniqueRows array
                                         $uniqueRows[] = $row;
                                     }
-                                } else {
-                                    $counter++; // Increment the counter for the first 6 rows
-                                }
+                                
+                                 
+                                
                             }
 
                             if ($number === 1) {
