@@ -176,7 +176,7 @@
 
                                 <td> Username </td>
                                 <td> Changes </td>
-                                <td> Change Time </td>
+                                <td> Time Of Change </td>
                             </tr>
                  <?php
                     $sql = "SELECT * FROM user_option WHERE name = '".$_SESSION["username"]."'";
@@ -198,7 +198,33 @@
                                         echo "<tr>";
                                         echo "<td>" . $number++ . "</td>"; // Increment and display the number
                                         echo "<td><b id=\"userParagraph\">" . $_SESSION["username"] . "</b></td>";
-                                        echo "<td>" . $row['value'] . "</td>";
+                                        if($row["_option"]=='weatherForecast'){
+                                            echo "<td>Weather: " . $row['value'] . "</td>";
+
+                                        }
+                                        if($row["_option"]=='temperature'){
+                                            echo "<td>Temperature: " . $row['value'] . "</td>";
+
+                                        }
+                                        if($row["_option"]=='isLightsOn'){
+                                            echo "<td>Light: " . $row['value'] . "</td>";
+
+                                        }
+                                        if($row["_option"]=='isEmergency'){
+                                            echo "<td>Alarm: " . $row['value'] . "</td>";
+
+                                        }
+                                        if($row["_option"]=='isAcOn'){
+                                            echo "<td>Air Conditioning: " . $row['value'] . "</td>";
+
+                                        }
+                                        if($row["_option"]=='isWindowBlindOn'){
+                                            echo "<td>Blinds: " . $row['value'] . "</td>";
+                                        }
+                                        if($row["_option"]=='isLigthsOn'){
+                                            echo "<td>Light: " . $row['value'] . "</td>";
+
+                                        }
                                         echo "<td>" . $row['date'] . "</td>";
                                         echo "</tr>";
 
