@@ -1,8 +1,7 @@
 <?php session_start(); ?>
 
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -197,11 +196,6 @@ if(!$conn)
     }
 
 
-    
-
-	
-
-
 	?>
     
 </head>
@@ -246,8 +240,8 @@ if(!$conn)
 
 
     </div>
-    
-    <?php
+    <div>
+      <?php
 
 
 
@@ -363,10 +357,10 @@ if(!$conn)
          //IŞIK kontrol
         $query = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."'AND light = 1";
          $result= mysqli_query($conn, $query);
-       if ($result) {
+            if ($result) {
         $row_count = mysqli_num_rows($result);
     
-        if ($row_count > 0) {
+            if ($row_count > 0) {
           
             echo '
             <div class="carousel-inner">
@@ -393,239 +387,226 @@ if(!$conn)
             </div>';
             
 
-//                    echo '<div class="col"><canvas id="chart-2"></canvas></div>';
 
-        } else {
-          
-        }
-   }
-   echo '<br>';
+            } else {
+                
+                }
+                    }
+                echo '<br>';
 
-    //blind kontrol
-    $query = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."'AND blinds = 1";
-    $result= mysqli_query($conn, $query);
-       if ($result) {
-        $row_count = mysqli_num_rows($result);
-    
-        if ($row_count > 0) {
-            echo '
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="card" id="blindsCard">
-                        <img id="blindsImage" src="./images/blindsOpened.png" class="card-img-top" alt="..." height="235" width="432" style="object-fit: contain;">
-                        <div class="card-body">
-                            <div class="container text-center">
-                                <h5 class="card-title">Control Window Blinds</h5>
-                                <p class="card-text">You can control them anytime you want.</p>
-                            </div>
-                            <div class="container text-center">
-                                <div class="row justify-content-between">
-                                    <div class="col">
-                                        <button class="btn btn-primary" onclick="onClickWindow();">Window Blind Toggle</button>
+                //blind kontrol
+                $query = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."'AND blinds = 1";
+                $result= mysqli_query($conn, $query);
+                    if ($result) {
+                        $row_count = mysqli_num_rows($result);
+                    
+                        if ($row_count > 0) {
+                            echo '
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <div class="card" id="blindsCard">
+                                        <img id="blindsImage" src="./images/blindsOpened.png" class="card-img-top" alt="..." height="235" width="432" style="object-fit: contain;">
+                                        <div class="card-body">
+                                            <div class="container text-center">
+                                                <h5 class="card-title">Control Window Blinds</h5>
+                                                <p class="card-text">You can control them anytime you want.</p>
+                                            </div>
+                                            <div class="container text-center">
+                                                <div class="row justify-content-between">
+                                                    <div class="col">
+                                                        <button class="btn btn-primary" onclick="onClickWindow();">Window Blind Toggle</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>';
-            
-            
-
-
-
-        } else {
-          
-        }
-       
-
-    }   
-    echo '<br>';
-
-         //sıcaklık kontrol
-  $query = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."'AND temperature = 1";
-    $result= mysqli_query($conn, $query);
-       if ($result) {
-        $row_count = mysqli_num_rows($result);
-    
-        if ($row_count > 0) {
-          
-            echo '
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                <div class="card" id="temperature">
-                    <a href="#chart">
-                        <img src="./images/temperature.png" class="card-img-top" alt="Temperature image" height="235" width="432" style="object-fit: contain;">
-                    </a>
-                    <div class="card-body">
-                        <div class="container text-center">
-                            <h5 class="card-title">Temperature</h5>
-                            <p class="card-text">House temperature is <b id="temperatureParagraph"></b><b>C.</b></p>
-                        </div>
-                        <div class="container text-center">
-                            <div class="row justify-content-between">
-                                <div class="col-6">
-                                    <button class="btn btn-primary" type="button" onclick="onClickTemperatureUp();">+</button>
-                                </div>
-                                <div class="col-6">
-                                    <button class="btn btn-primary" type="button" onclick="onClickTemperatureDown();">-</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                        </div>
-                </div>';
-                
-               // echo '<div class="col"><canvas id="chart"></canvas></div>';
-
-        } else {
-          
-        }
-  }
-
-  
-
-        if($_SESSION["username"]=="alperkaya" || $_SESSION["username"]=="meryemAhiskali"){
-            echo '<br>';
-
-            echo '<br>';
-            echo '<br>';
-            echo '<br>';  echo '<br>';
-            echo '<br>';
-            echo '<br>';  echo '<br>';
-            echo '<br>';
-            echo '<br>';echo '<br>';
-
-            echo '<br>';
-            echo '<br>';
-            echo '<br>';  echo '<br>';
-            echo '<br>';
-            echo '<br>';  echo '<br>';
-            echo '<br>';
-          
-            echo '<br>';
-            echo '<br>';
-          
-            echo '<br>';
-            echo '<br>';
-          
-        
-            echo '<div class="shadow-lg p-3 mb-5 mx-5 bg-body rounded">Your House Statistics</div>';
-            echo '<div class="card chart-container m-2 py-2">';
-            echo '<div class="row justify-content-center">';
-                //temp
-                $query = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."'AND temperature = 1";
-                $result= mysqli_query($conn, $query);
-                   if ($result) {
-                    $row_count = mysqli_num_rows($result);
-                
-                            if ($row_count > 0) {
-                                    //temp
-
-
-                                    echo '<div class="col" style="margin-top: 60px;">
-                                    <img src="celsius.png" alt="homes" width="260" height="260" style="margin-left: 150px;">
-                                </div>';
-                                
-
-                                echo '<div class="col"><canvas id="chart"></canvas></div>';
-
-                        echo '</div>';
-                            }
-                        }
-
-            echo '</div>';
-            echo '<br>';
-             echo '<div class="card chart-container m-2 py-2">';
-            echo '<div class="row justify-content-center">';
-            //light
-            $query = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."'AND light = 1";
-            $result= mysqli_query($conn, $query);
-                if ($result) {
-                $row_count = mysqli_num_rows($result);
-
-                if ($row_count > 0) {
-
+                            </div>';
+                            
                             
 
-                                echo '<div class="col"><canvas id="chart-2"></canvas></div>';
-                                echo '<div class="col">
-                    <img src="light-bulb.png" alt="homes" width="240" height="240" style="margin-left: 220px; margin-top: 80px;">
-                </div>';
 
-                    echo '</div>';
 
-                }
-            echo '</div>';
-            echo '<br>';
-            echo '<div class="card chart-container m-2 py-2">';
-
-            echo '<div class="row justify-content-center">';
-
-                $query = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."'AND airConditioning = 1";
-                 $result= mysqli_query($conn, $query);
-                        if ($result) {
-                            $row_count = mysqli_num_rows($result);
+                        } else {
                         
-                            if ($row_count > 0) {
-                                echo '<div class="col">
-                                <img src="lighting.png" alt="homes" width="260" height="260" style="margin-top: 80px; margin-left: 300px;">
-                            </div>';
-                      
-                                echo '<div class="col">
-                                <div class="text-center mt-1" style="font-size: 0.8rem; color: gray"><p>Energy Consumption</p></div>
-                                <canvas id="chart-3"></canvas>
-                            </div>';
+                        }
                     
 
-                            
-                            
-                        echo '</div>';
+                    }   
+                echo '<br>';
 
-                            }
-                        }
-
-                        echo '</div>';
-                        echo '<br>';
-
-                        echo '<div class="card chart-container m-2 py-2">';
-                        echo '<div class="row justify-content-center">';
-            $query = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."'AND weather = 1";
-                $result= mysqli_query($conn, $query);
-            
-                   if ($result) {
+                    //sıcaklık kontrol
+            $query = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."'AND temperature = 1";
+            $result= mysqli_query($conn, $query);
+                if ($result) {
                     $row_count = mysqli_num_rows($result);
                 
-                        if ($row_count > 0) {
-                            //weather
-                            echo '<div class="col">
-                            <div class="text-center mt-3" style="font-size: 0.8rem; color: gray"><p>Weather of Last Year</p></div>
-                            <canvas id="chart-4"></canvas>
-                        </div>';
-              
-                        echo '<div class="col">
-                                <img src="cloudy.png" alt="homes" width="260" height="260" style="margin-top: 80px; margin-left: 300px;">
+                    if ($row_count > 0) {
+                    
+                        echo '
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                            <div class="card" id="temperature">
+                                <a href="#chart">
+                                    <img src="./images/temperature.png" class="card-img-top" alt="Temperature image" height="235" width="432" style="object-fit: contain;">
+                                </a>
+                                <div class="card-body">
+                                    <div class="container text-center">
+                                        <h5 class="card-title">Temperature</h5>
+                                        <p class="card-text">House temperature is <b id="temperatureParagraph"></b><b>C.</b></p>
+                                    </div>
+                                    <div class="container text-center">
+                                        <div class="row justify-content-between">
+                                            <div class="col-6">
+                                                <button class="btn btn-primary" type="button" onclick="onClickTemperatureUp();">+</button>
+                                            </div>
+                                            <div class="col-6">
+                                                <button class="btn btn-primary" type="button" onclick="onClickTemperatureDown();">-</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    </div>
                             </div>';
-                            echo '</div>';
+                            
+                        // echo '<div class="col"><canvas id="chart"></canvas></div>';
 
+                    } else {
+                    
                     }
-                }
-                
-               
-                echo '</div>';
+            }
 
-            echo '<div class="container text-center my-5"><div class="row"><div class="col-12"><img src="./images/seperator.png" height="20rem" style="opacity:0.8"></div></div></div>';
-        }
+  
+?>
+        
+        </div>
+        <br>
+        <br>
+        <br>
+        <?php
+$showTable = false;
 
+// alarm kontrol
+$query = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."' AND alarm = 1";
+$result = mysqli_query($conn, $query);
+if ($result && mysqli_num_rows($result) > 0) {
+  $showTable = true;
+}
 
+// hava durumu kontrol
+$query = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."' AND weather = 1";
+$result = mysqli_query($conn, $query);
+if ($result && mysqli_num_rows($result) > 0) {
+  $showTable = true;
+}
 
-    }  
-        ?>
+// klima kontrol
+$query = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."' AND airConditioning = 1";
+$result = mysqli_query($conn, $query);
+if ($result && mysqli_num_rows($result) > 0) {
+  $showTable = true;
+}
 
+// IŞIK kontrol
+$query = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."' AND light = 1";
+$result = mysqli_query($conn, $query);
+if ($result && mysqli_num_rows($result) > 0) {
+  $showTable = true;
+}
 
+// blind kontrol
+$query = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."' AND blinds = 1";
+$result = mysqli_query($conn, $query);
+if ($result && mysqli_num_rows($result) > 0) {
+  $showTable = true;
+}
 
-             
+// sıcaklık kontrol
+$query = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."' AND temperature = 1";
+$result = mysqli_query($conn, $query);
+if ($result && mysqli_num_rows($result) > 0) {
+  $showTable = true;
+}
+
+if ($showTable) {
+    echo '
+      <div>
+        <div class="shadow-lg p-3 mb-5 mx-5 bg-body rounded">Your House Statistics</div>
+        
+        <div class="container">
+          <div class="row">
+            <div class="col m-auto">
+              <div class="card mt-5">
+                <table class="table table-bordered">
+                  <tr>
+                    <th>Device</th>
+                    <th>Data</th>
+                    <th>Value</th>
+                  </tr>
+                  <tr>';
+                  $querytemp = "SELECT AVG(value) AS average_value FROM user_option WHERE name = '" . $_SESSION["username"] . "' AND _option = 'temperature'";
+                  $resulttemp = mysqli_query($conn, $querytemp);
+                  $rowtemp = mysqli_fetch_assoc($resulttemp);
+                  $averageValue = $rowtemp["average_value"];
+                    $query = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."' AND temperature = 1";
+                    $result = mysqli_query($conn, $query);
+                    if ($result && mysqli_num_rows($result) > 0) {
+                      echo '<td>Temperature</td>
+                            <td>Average temperature</td>
+                            <td>' . $averageValue . '</td>';
+                    }
+    echo '         </tr>
+                    <tr>';
+                    $querylight = "SELECT COUNT(*) * 12 AS multiplied_value FROM user_option WHERE name = '" . $_SESSION["username"] . "' AND _option = 'isLigthsOn' AND value = 'true'";
+                    $resultlight= mysqli_query($conn, $querylight);
+                    $rowtemp = mysqli_fetch_assoc($resultlight);
+                  $averageValue = $rowtemp["multiplied_value"];
+                    $query = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."' AND light = 1";
+                    $result = mysqli_query($conn, $query);
+                    if ($result && mysqli_num_rows($result) > 0) {
+                      echo '<td>Light</td>
+                            <td>Energy Consumption</td>
+                            <td>' . $averageValue . 'kW</td>';
+                    }
+    echo '         </tr>
+                   <tr>';
+                    $queryBlind = "SELECT * FROM user_option WHERE name = '" . $_SESSION["username"] . "' AND _option = 'isWindowBlindOn' AND value = 'true'";
+                    $resultBlind = mysqli_query($conn, $queryBlind);
+                    $rowtemp = mysqli_fetch_assoc($resultBlind);
+                    $openCount = mysqli_num_rows($resultBlind);
+                    $query = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."' AND blinds = 1";
+                    $result = mysqli_query($conn, $query);
+                    if ($result && mysqli_num_rows($result) > 0) {
+                    echo '<td>Blinds</td>
+                            <td>Number of Openings</td>
+                            <td>' . $openCount . '</td>';
+                    }
+                    echo '</tr>
+                    <tr>';
+                    $queryAc = "SELECT COUNT(*) * 20 AS multiplied_value FROM user_option WHERE name = '" . $_SESSION["username"] . "' AND _option = 'isAcOn' AND value = 'true'";
+                    $resultAc = mysqli_query($conn, $queryAc);
+                    $rowAc = mysqli_fetch_assoc($resultAc);
+                    $averageValue = $rowAc["multiplied_value"];
+                      $query = "SELECT * FROM device WHERE username = '".$_SESSION["username"]."' AND airConditioning = 1";
+                      $result = mysqli_query($conn, $query);
+                      if ($result && mysqli_num_rows($result) > 0) {
+                        echo '<td>Air Conditioning</td>
+                              <td>Energy Consumption</td>
+                              <td>' . $averageValue . '<kW/td>';
+                      }
+      echo '         </tr>
     
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>';
+  }
+  
+?>
+
+       
     <?php include '../toast.php' ?>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
