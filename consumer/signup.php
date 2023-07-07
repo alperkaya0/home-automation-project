@@ -28,6 +28,7 @@ if(isset($_POST["submit"])){
 
 	$errors = array();
 
+		//THESE TYPE CHECKS CAN & WILL PROTECT THE SYSTEM FROM SQL INJECTIONS
 		if (empty($name) || empty($surname) || empty($username) || empty($password)) {
 			$errors[] = 'Please fill in all fields.';
 		} else if (!preg_match("/^[a-zA-Z]+$/", $name)) {

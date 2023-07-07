@@ -21,15 +21,16 @@
 
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+        //TO PREVENT SQL INJECTION
+        $username = htmlspecialchars($_POST['username']);
+        $password = htmlspecialchars($_POST['password']);
 
         $errors = array();
 
         if (empty($username)) {
             $errors['username'] = 'A username is required <br />';
         } else {
-            $username = $_POST['username'];
+            $username = htmlspecialchars($_POST['username']);
             if (!preg_match('/^[a-zA-ZğĞıİöÖçÇşŞüÜ\s]+$/u', $username)) {
                 $errors['username'] = 'Username must be letters and spaces only<br />';
             }
@@ -37,7 +38,7 @@
         if (empty($password)) {
             $errors['password'] = 'A password is required <br />';
         } else {
-            $password = $_POST['password'];
+            $password = htmlspecialchars($_POST['password']);
             if (!preg_match('/^[0-9]+$/', $password)) {
                 $errors['password'] = 'Password must contain only numbers';
             }
